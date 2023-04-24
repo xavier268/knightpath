@@ -66,14 +66,34 @@ func Solve(from *State) error {
 			if from == nil {
 				return ErrBlocked
 			}
-		} else {
-			return nil
 		}
 
 		if from.Solved() {
+			from.Display()
 			return nil
 		}
 		// else loop from top ...
+
+	}
+}
+
+func (from *State) Display() {
+
+	var ech [8][8]int
+
+	for st := from; st != nil; st = st.prev {
+		x, y := sToCoord(st.pos)
+		ech[x][y] = bits.OnesCount64(st.occ)
+	}
+	fmt.Println("\n-----------------------------------------------")
+	for i := 0; i < 8; i++ {
+		for j := 0; j < 8; j++ {
+			fmt.Printf("%3d", ech[i][j])
+			if j != 7 {
+				fmt.Printf(" | ")
+			}
+		}
+		fmt.Println("\n-----------------------------------------------")
 	}
 }
 
