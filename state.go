@@ -5,7 +5,7 @@ import (
 	"math/bits"
 )
 
-const VERB = 1
+const VERBOSE = 0
 
 // States
 type State struct {
@@ -42,11 +42,11 @@ func Solve(from *State) error {
 					from.try = from.try | (1 << i) // mark as tried
 					if bits.OnesCount64(from.occ) > maxDepth {
 						maxDepth = bits.OnesCount64(from.occ)
-						if VERB >= 1 {
+						if VERBOSE >= 1 {
 							fmt.Printf("Max depth : %d\n", maxDepth)
 						}
 					}
-					if VERB >= 2 {
+					if VERBOSE >= 2 {
 						fmt.Printf("trying %d,\tocc:%064b\tdepth:%d/%d\n", i, from.occ, bits.OnesCount64(from.occ), maxDepth)
 					}
 					//time.Sleep(time.Second / 4)

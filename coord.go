@@ -8,11 +8,17 @@ import (
 var CanDo [64]uint64 // for each square, from 0 to 63, bit mask for the acessible squares.
 
 func init() {
-	fmt.Println("Starting precomputation of legal moves")
+	if VERBOSE >= 1 {
+		fmt.Println("Starting precomputation of legal moves")
+	}
 	precomputeCanDo()
-	fmt.Println("Finished precomputation of legal moves")
-	for _, m := range CanDo {
-		fmt.Printf("%064b\t%d\n", m, bits.OnesCount64(m))
+	if VERBOSE >= 1 {
+		fmt.Println("Finished precomputation of legal moves")
+	}
+	if VERBOSE >= 2 {
+		for _, m := range CanDo {
+			fmt.Printf("%064b\t%d\n", m, bits.OnesCount64(m))
+		}
 	}
 }
 
@@ -33,14 +39,7 @@ func sToCoord(square int) (x int, y int) {
 	return x, y
 }
 
-/*
-// get square for a given coordinate
-func coordToS(x, y int) int {
-	return x + 8*y
-}
-*/
-
-// True iff knight can jump from a to b
+// True if and only if knight can jump from a to b
 func linked(sa, sb int) bool {
 	xa, ya := sToCoord(sa)
 	xb, yb := sToCoord(sb)
