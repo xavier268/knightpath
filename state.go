@@ -27,7 +27,7 @@ var (
 	ErrBlocked error = fmt.Errorf("blocked")
 )
 
-const FULL = 0xFFFFFFFF
+const FULL = 0xFFFF_FFFF_FFFF_FFFF
 
 func Solve(from *State) error {
 
